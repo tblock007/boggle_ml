@@ -8,8 +8,11 @@
 #include <string>
 
 int main(int argc, char *argv[]) {
-  std::string const options_text = "Valid options:\n"
-    "  runs_needed - Rolls and evaluates a large number of boards and outputs the scores (shortcut: rn)\n";
+  std::string const options_text
+      = "Valid options:\n"
+        "  runs_needed - Rolls and evaluates a large number of boards and outputs the scores "
+        "(shortcut: rn)\n";
+
   if (argc != 2) {
     std::cout << "Please specify exactly one argument.\n" << options_text;
     return 1;
@@ -33,6 +36,6 @@ int main(int argc, char *argv[]) {
       = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
   std::cout << "Application complete!";
   std::cout << "Time elapsed: " << static_cast<double>(duration_in_ms.count()) / 1000.0
-            << " seconds.\n";
+            << " seconds." << std::endl;
   return 0;
 }

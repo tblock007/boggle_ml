@@ -43,8 +43,8 @@ class RunsNeededProfilingApplication : public ApplicationInterface {
     std::ofstream average_ss("average_tracking.txt");
     int total = 0;
     for (int i = 0; i < 100000; ++i) {
-      if (i % 0 == 1000) {
-        std::cout << "Starting iteration " << i << '\n';
+      if (i % 1000 == 0) {
+        std::cout << "Starting iteration " << i << std::endl;
       }
       auto board = cubeset.GenerateBoard();
       int score = evaluator.Evaluate(board);

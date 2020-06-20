@@ -1,4 +1,5 @@
 #include "../board_evaluator.hpp"
+#include "../cubeset.hpp"
 #include "../prefix_trie.hpp"
 #include "catch.hpp"
 
@@ -11,7 +12,7 @@ TEST_CASE("FindWordWithDoubleLetter", "[board_evaluator]") {
   PrefixTrie lexicon;
   lexicon.Insert("into");
   BoardEvaluator evaluator(2, 2, std::move(lexicon), [](int) { return 1; });
-  std::vector<BoardEvaluator::Square> board = {{'i', 'n'}, {'t', ' '}, {'o', ' '}, {'z', ' '}};
+  std::vector<Cubeset::Square> board = {{'i', 'n'}, {'t', ' '}, {'o', ' '}, {'z', ' '}};
   auto words = evaluator.FindWords(board);
   REQUIRE(words.size() == 1);
   REQUIRE(words.count("into") == 1);
@@ -19,7 +20,7 @@ TEST_CASE("FindWordWithDoubleLetter", "[board_evaluator]") {
 
 TEST_CASE("FindWords4x4", "[board_evaluator][large]") {
   BoardEvaluator evaluator(4, 4, FromFile("lexicons/english.txt"), [](int) { return 1; });
-  std::vector<BoardEvaluator::Square> board
+  std::vector<Cubeset::Square> board
       = {{'a', ' '}, {'t', ' '}, {'q', 'u'}, {'v', ' '}, {'r', ' '}, {'s', ' '},
          {'n', ' '}, {'i', ' '}, {'x', ' '}, {'i', ' '}, {'s', ' '}, {'e', ' '},
          {'s', ' '}, {'s', ' '}, {'l', ' '}, {'m', ' '}};

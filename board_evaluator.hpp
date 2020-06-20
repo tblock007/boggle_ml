@@ -4,9 +4,9 @@
 #include <functional>
 #include <string>
 #include <unordered_set>
-#include <utility>
 #include <vector>
 
+#include "cubeset.hpp"
 #include "prefix_trie.hpp"
 
 namespace boggle {
@@ -24,19 +24,16 @@ namespace boggle {
 // ********************************************************************************
 class BoardEvaluator {
  public:
-  // Represents the face of a cube. A ' ' character in the second slot means this
-  // face has only one letter.
-  using Square = std::pair<char, char>;
-
   BoardEvaluator(int width, int height, PrefixTrie&& lexicon,
                  std::function<int(int)> score_function);
 
-  std::unordered_set<std::string> FindWords(std::vector<Square> const& board);
-  int Evaluate(std::vector<Square> const& board);
+  std::unordered_set<std::string> FindWords(std::vector<Cubeset::Square> const& board);
+  int Evaluate(std::vector<Cubeset::Square> const& board);
 
  private:
-  std::unordered_set<std::string> DfsTrieTraverse(std::vector<Square> const& board, int index,
-                                                  std::vector<char> visited, TrieNode* trie_node);
+  std::unordered_set<std::string> DfsTrieTraverse(std::vector<Cubeset::Square> const& board,
+                                                  int index, std::vector<char> visited,
+                                                  TrieNode* trie_node);
 
   int const width_;
   int const height_;

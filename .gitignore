@@ -34,3 +34,4 @@
 .vscode/
 build/
 cmake-build-release/
+CMakeSettings.json

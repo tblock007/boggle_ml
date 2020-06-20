@@ -1,5 +1,6 @@
 #include "board_evaluator.hpp"
 #include "common.hpp"
+#include "cubeset.hpp"
 
 namespace boggle {
 
@@ -36,7 +37,8 @@ BoardEvaluator::BoardEvaluator(int width, int height, PrefixTrie&& lexicon,
   }
 }
 
-std::unordered_set<std::string> BoardEvaluator::FindWords(std::vector<Square> const& board) {
+std::unordered_set<std::string> BoardEvaluator::FindWords(
+    std::vector<Cubeset::Square> const& board) {
   std::unordered_set<std::string> words;
   for (int i = 0; i < board.size(); ++i) {
     words.merge(
@@ -45,19 +47,18 @@ std::unordered_set<std::string> BoardEvaluator::FindWords(std::vector<Square> co
   return words;
 }
 
-int BoardEvaluator::Evaluate(std::vector<Square> const& board) {
+int BoardEvaluator::Evaluate(std::vector<Cubeset::Square> const& board) {
   int sum = 0;
   auto words = FindWords(board);
   for (auto word : words) {
-    sum += score_function_(word.size());
+    sum += score_function_(static_cast<int>(word.size()));
   }
   return sum;
 }
 
-std::unordered_set<std::string> BoardEvaluator::DfsTrieTraverse(std::vector<Square> const& board,
-                                                                int index,
-                                                                std::vector<char> visited,
-                                                                TrieNode* trie_node) {
+std::unordered_set<std::string> BoardEvaluator::DfsTrieTraverse(
+    std::vector<Cubeset::Square> const& board, int index, std::vector<char> visited,
+    TrieNode* trie_node) {
   // Ensure that including the current Square could still lead to a valid word, according to the
   // prefix trie. If so, traverse the trie accordingly and continue the DFS. Otherwise, return an
   // empty set to indicate no words can be found by including this Square.

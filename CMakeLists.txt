@@ -5,11 +5,15 @@ set(CMAKE_CXX_STANDARD 17)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake-build-release/)
 
 set(SOURCE_FILES
+    application_interface.hpp
     board_evaluator.hpp
     board_evaluator.cpp
     common.hpp
+    cubeset.hpp
+    cubeset.cpp
     prefix_trie.hpp
-    prefix_trie.cpp)
+    prefix_trie.cpp
+    runs_needed_profiling_application.hpp)
 
 set(TEST_SOURCE_FILES
     tests/test_prefix_trie.cpp

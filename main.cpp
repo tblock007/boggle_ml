@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
   auto end_time = std::chrono::steady_clock::now();
   auto duration_in_ms
       = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-  std::cout << "Application complete!";
+  std::cout << "Application complete!\n";
   std::cout << "Time elapsed: " << static_cast<double>(duration_in_ms.count()) / 1000.0
             << " seconds." << std::endl;
   return 0;

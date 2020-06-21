@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 #include <numeric>
 
 namespace boggle {
@@ -24,11 +25,10 @@ Cubeset::Cube CreateCube(std::vector<std::string> faces) {
 }  // namespace
 
 Cubeset::Cubeset(std::vector<Cubeset::Cube> cubes)
-    : rd_(),
-      mt_engine_(rd_()),
-      dice_rolls_(0, 5),
-      cubes_(std::move(cubes)),
-      indices_(cubes_.size()) {
+    : rd_(), dice_roller_(0, 5), cubes_(std::move(cubes)), indices_(cubes_.size()) {
+  auto seed = rd_();
+  mt_engine_.seed(seed);
+  std::cout << "Initialized MT engine with seed " << seed << std::endl;
   std::iota(indices_.begin(), indices_.end(), 0);
 }
 
@@ -36,7 +36,7 @@ std::vector<Cubeset::Square> Cubeset::GenerateBoard() {
   std::vector<Cubeset::Square> result(cubes_.size());
   std::shuffle(indices_.begin(), indices_.end(), mt_engine_);
   for (int i = 0; i < cubes_.size(); ++i) {
-    size_t face = dice_rolls_(mt_engine_);
+    size_t face = dice_roller_(mt_engine_);
     result[indices_[i]] = cubes_[i][face];
   }
   return result;

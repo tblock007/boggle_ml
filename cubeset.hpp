@@ -29,7 +29,7 @@ class Cubeset {
  private:
   std::random_device rd_;
   std::mt19937 mt_engine_;
-  std::uniform_int_distribution<size_t> dice_rolls_;
+  std::uniform_int_distribution<size_t> dice_roller_;
   std::vector<Cube> cubes_;
   std::vector<size_t> indices_;
 };
